@@ -101,8 +101,8 @@
                 </div>
             </div>
 
-            <!-- 2. Android -->
-            <a href="#" class="block bg-zionGray border border-zionBorder rounded-xl p-4 card-hover group">
+                  <!-- 2. Android Card (Dynamic) -->
+            <a id="androidLink" href="#" class="block bg-zionGray border border-zionBorder rounded-xl p-4 card-hover group">
                 <div class="flex items-center justify-between">
                     <div class="flex items-center gap-4">
                         <div class="w-11 h-11 rounded-lg bg-[#1c1c1c] flex items-center justify-center border border-white/5">
@@ -110,19 +110,17 @@
                         </div>
                         <div>
                             <h3 class="font-semibold text-[15px] leading-tight">Android</h3>
-                            <p class="text-xs text-zionDim mt-0.5 font-medium" data-i18n="android_sub">Direct .APK</p>
+                            <div class="flex items-center gap-2 mt-0.5">
+                                <p class="text-xs text-zionDim font-medium" data-i18n="android_sub">Direct .APK</p>
+                                <!-- Сюда скрипт напишет версию (например v1.2) -->
+                                <span id="androidVer" class="text-[9px] bg-green-900/20 text-green-500 px-1.5 rounded hidden">LATEST</span>
+                            </div>
                         </div>
                     </div>
                     <i class="fas fa-arrow-down text-zionDim/50 group-hover:text-white transition-colors text-sm"></i>
                 </div>
             </a>
 
-            <!-- Divider -->
-            <div class="py-5 flex items-center gap-4 opacity-30">
-                <div class="h-px bg-white/20 flex-1"></div>
-                <span class="text-[9px] font-bold tracking-[0.2em] text-white uppercase" data-i18n="desktop_divider">DESKTOP</span>
-                <div class="h-px bg-white/20 flex-1"></div>
-            </div>
 
             <!-- 3. macOS -->
             <a href="#" class="block bg-zionGray border border-zionBorder rounded-xl p-4 card-hover group">
@@ -203,5 +201,43 @@
             if (steps.classList.contains('ios-expanded')) { steps.classList.remove('ios-expanded'); chevron.style.transform = 'rotate(0deg)'; } else { steps.classList.add('ios-expanded'); chevron.style.transform = 'rotate(180deg)'; }
         }
     </script>
+
+    <script>
+        // ... твои старые скрипты ...
+
+        // --- АВТОМАТИЗАЦИЯ APK ---
+        const GITHUB_REPO = "odBoreas/zion"; // Твой репозиторий
+
+        async function getLatestApk() {
+            try {
+                // Стучимся в API Гитхаба
+                const response = await fetch(`https://api.github.com/repos/${GITHUB_REPO}/releases/latest`);
+                const data = await response.json();
+
+                // Ищем файл, который заканчивается на .apk
+                const apkAsset = data.assets.find(asset => asset.name.endsWith('.apk'));
+
+                if (apkAsset) {
+                    // 1. Подменяем ссылку на кнопку
+                    const btn = document.getElementById('androidLink');
+                    btn.href = apkAsset.browser_download_url;
+
+                    // 2. Показываем версию
+                    const verBadge = document.getElementById('androidVer');
+                    verBadge.innerText = data.tag_name; // Например "v1.0.2"
+                    verBadge.classList.remove('hidden');
+                    
+                    console.log("New APK linked:", data.tag_name);
+                }
+            } catch (error) {
+                console.error("GitHub API Error:", error);
+                // Если ошибка, ссылка останется пустой или можно поставить запасную
+            }
+        }
+
+        // Запускаем поиск
+        getLatestApk();
+    </script>
+
 </body>
 </html>
