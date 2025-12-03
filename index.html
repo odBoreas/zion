@@ -6,7 +6,6 @@
     <title>ZION | Download Portal</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Подключаем Manrope и JetBrains Mono -->
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     
     <script>
@@ -18,7 +17,7 @@
                         mono: ['JetBrains Mono', 'monospace'] 
                     },
                     colors: {
-                        zionBlack: "#080808", /* Чуть глубже черный */
+                        zionBlack: "#080808",
                         zionGray: "#121212",
                         zionBorder: "#262626",
                         zionText: "#ededed",
@@ -50,7 +49,7 @@
     <!-- Background -->
     <div class="fixed inset-0 opacity-[0.04] pointer-events-none z-0" style="background-image: url('https://grainy-gradients.vercel.app/noise.svg');"></div>
 
-    <!-- Lang -->
+    <!-- Lang Switcher -->
     <div class="absolute top-8 right-8 z-50 flex items-center gap-3 text-xs font-medium text-zionDim">
         <span onclick="setLang('ru')" class="lang-btn" id="btn-ru">RU</span>
         <span class="opacity-20">/</span>
@@ -60,7 +59,7 @@
     <div class="w-full max-w-[400px] relative z-10 animate-fade-in">
         
         <!-- Logo -->
-        <div class="text-center mb-14">
+        <div class="text-center mb-12">
             <img src="assets/images/logo.png" alt="ZION" class="h-14 mx-auto mb-6 object-contain opacity-90">
             <div class="inline-flex items-center justify-center px-4 py-1.5 border border-zionBorder rounded-full bg-zionGray/30 backdrop-blur-sm">
                 <div class="w-1.5 h-1.5 bg-green-500 rounded-full mr-2 animate-pulse"></div>
@@ -71,11 +70,11 @@
         <!-- Grid -->
         <div class="space-y-3">
 
-            <!-- 1. iOS -->
-            <div class="bg-zionGray rounded-xl overflow-hidden border border-zionBorder">
-                <div onclick="toggleIOS()" class="p-4 flex items-center justify-between cursor-pointer card-hover border-0 rounded-xl">
+            <!-- 1. iOS App -->
+            <div class="bg-zionGray rounded-sm overflow-hidden border border-zionBorder">
+                <div onclick="toggleIOS()" class="p-4 flex items-center justify-between cursor-pointer card-hover border-0 rounded-sm">
                     <div class="flex items-center gap-4">
-                        <div class="w-11 h-11 rounded-lg bg-[#1c1c1c] flex items-center justify-center border border-white/5">
+                        <div class="w-11 h-11 rounded-sm bg-[#1c1c1c] flex items-center justify-center border border-white/5">
                             <i class="fab fa-apple text-xl text-white"></i>
                         </div>
                         <div>
@@ -89,31 +88,30 @@
                 <!-- Steps -->
                 <div id="iosSteps" class="ios-steps bg-[#0d0d0d] border-t border-zionBorder/50">
                     <div class="p-3 space-y-2">
-                        <a href="https://apps.apple.com/us/app/testflight/id899247664" target="_blank" class="flex items-center gap-3 p-3 rounded-lg bg-[#141414] border border-white/5 hover:bg-[#1a1a1a] transition-colors group">
-                            <div class="w-6 h-6 rounded bg-[#007AFF]/10 flex items-center justify-center text-[10px] font-bold text-[#007AFF] group-hover:bg-[#007AFF] group-hover:text-white transition-colors">1</div>
+                        <a href="https://apps.apple.com/us/app/testflight/id899247664" target="_blank" class="flex items-center gap-3 p-3 rounded-sm bg-[#141414] border border-white/5 hover:bg-[#1a1a1a] transition-colors group">
+                            <div class="w-6 h-6 rounded-sm bg-[#007AFF]/10 flex items-center justify-center text-[10px] font-bold text-[#007AFF] group-hover:bg-[#007AFF] group-hover:text-white transition-colors">1</div>
                             <div class="text-xs font-medium text-gray-300" data-i18n="ios_step1">Install TestFlight</div>
                         </a>
-                        <a href="https://testflight.apple.com/join/UcnAFCbV" target="_blank" class="flex items-center gap-3 p-3 rounded-lg bg-[#141414] border border-white/5 hover:bg-[#1a1a1a] transition-colors group">
-                            <div class="w-6 h-6 rounded bg-white/10 flex items-center justify-center text-[10px] font-bold text-white group-hover:bg-white group-hover:text-black transition-colors">2</div>
+                        <a href="https://testflight.apple.com/join/LINK" target="_blank" class="flex items-center gap-3 p-3 rounded-sm bg-[#141414] border border-white/5 hover:bg-[#1a1a1a] transition-colors group">
+                            <div class="w-6 h-6 rounded-sm bg-white/10 flex items-center justify-center text-[10px] font-bold text-white group-hover:bg-white group-hover:text-black transition-colors">2</div>
                             <div class="text-xs font-medium text-gray-300" data-i18n="ios_step2">Join ZION Beta</div>
                         </a>
                     </div>
                 </div>
             </div>
 
-                  <!-- 2. Android Card (Dynamic) -->
-            <a id="androidLink" href="#" class="block bg-zionGray border border-zionBorder rounded-xl p-4 card-hover group">
+            <!-- 2. Android (Auto-Link) -->
+            <a id="androidLink" href="#" class="block bg-zionGray border border-zionBorder rounded-sm p-4 card-hover group">
                 <div class="flex items-center justify-between">
                     <div class="flex items-center gap-4">
-                        <div class="w-11 h-11 rounded-lg bg-[#1c1c1c] flex items-center justify-center border border-white/5">
+                        <div class="w-11 h-11 rounded-sm bg-[#1c1c1c] flex items-center justify-center border border-white/5">
                             <i class="fab fa-android text-xl text-[#3DDC84]"></i>
                         </div>
                         <div>
                             <h3 class="font-semibold text-[15px] leading-tight">Android</h3>
                             <div class="flex items-center gap-2 mt-0.5">
                                 <p class="text-xs text-zionDim font-medium" data-i18n="android_sub">Direct .APK</p>
-                                <!-- Сюда скрипт напишет версию (например v1.2) -->
-                                <span id="androidVer" class="text-[9px] bg-green-900/20 text-green-500 px-1.5 rounded hidden">LATEST</span>
+                                <span id="androidVer" class="text-[9px] bg-green-900/20 text-green-500 px-1.5 rounded-sm font-mono hidden">LATEST</span>
                             </div>
                         </div>
                     </div>
@@ -121,12 +119,20 @@
                 </div>
             </a>
 
+            <!-- DESKTOP DIVIDER (FIXED) -->
+            <div class="py-6 flex items-center gap-4">
+                <!-- Линия цвета рамки (четко видна) -->
+                <div class="h-px bg-zionBorder flex-1"></div>
+                <!-- Текст серый -->
+                <span class="text-[10px] font-mono font-bold tracking-[0.2em] text-zionDim/70 uppercase" data-i18n="desktop_divider">DESKTOP</span>
+                <div class="h-px bg-zionBorder flex-1"></div>
+            </div>
 
             <!-- 3. macOS -->
-            <a href="#" class="block bg-zionGray border border-zionBorder rounded-xl p-4 card-hover group">
+            <a href="#" class="block bg-zionGray border border-zionBorder rounded-sm p-4 card-hover group">
                 <div class="flex items-center justify-between">
                     <div class="flex items-center gap-4">
-                        <div class="w-11 h-11 rounded-lg bg-[#1c1c1c] flex items-center justify-center border border-white/5">
+                        <div class="w-11 h-11 rounded-sm bg-[#1c1c1c] flex items-center justify-center border border-white/5">
                             <i class="fab fa-apple text-xl text-white"></i>
                         </div>
                         <div>
@@ -134,7 +140,7 @@
                             <div class="flex items-center gap-1.5 mt-0.5">
                                 <p class="text-xs text-zionDim font-medium" data-i18n="mac_sub">Apple Silicon</p>
                                 <span class="w-1 h-1 rounded-full bg-zinc-600"></span>
-                                <p class="text-[10px] text-yellow-600/80 font-mono bg-yellow-900/10 px-1.5 py-0.5 rounded">M1/M2/M3</p>
+                                <p class="text-[10px] text-yellow-600/80 font-mono bg-yellow-900/10 px-1.5 py-0.5 rounded-sm">M1/M2/M3</p>
                             </div>
                         </div>
                     </div>
@@ -143,10 +149,10 @@
             </a>
 
             <!-- 4. Windows -->
-            <a href="#" class="block bg-zionGray border border-zionBorder rounded-xl p-4 card-hover group">
+            <a href="#" class="block bg-zionGray border border-zionBorder rounded-sm p-4 card-hover group">
                 <div class="flex items-center justify-between">
                     <div class="flex items-center gap-4">
-                        <div class="w-11 h-11 rounded-lg bg-[#1c1c1c] flex items-center justify-center border border-white/5">
+                        <div class="w-11 h-11 rounded-sm bg-[#1c1c1c] flex items-center justify-center border border-white/5">
                             <i class="fab fa-windows text-xl text-[#00A4EF]"></i>
                         </div>
                         <div>
@@ -172,11 +178,11 @@
     </div>
 
     <script>
-        // Hacker Effect
+        // --- 1. HACKER TEXT EFFECT ---
         const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-        let interval = null;
         function hackerEffect(target) {
-            let iteration = 0; const originalText = target.dataset.value; clearInterval(interval);
+            let iteration = 0; const originalText = target.dataset.value; let interval = null;
+            clearInterval(interval);
             interval = setInterval(() => {
                 target.innerText = originalText.split("").map((letter, index) => { if(index < iteration) return originalText[index]; return letters[Math.floor(Math.random() * 26)]; }).join("");
                 if(iteration >= originalText.length) clearInterval(interval); iteration += 1 / 3;
@@ -185,7 +191,7 @@
         const buildText = document.getElementById('buildText');
         window.onload = () => hackerEffect(buildText);
 
-        // i18n
+        // --- 2. TRANSLATIONS ---
         const translations = {
             en: { ios_title: "iOS App", ios_sub: "via TestFlight", ios_step1: "Install TestFlight", ios_step2: "Join ZION Beta", android_sub: "Direct .APK", desktop_divider: "DESKTOP", mac_sub: "Apple Silicon", win_sub: "Windows 10/11 (x64)", mirror_link: "Download issues? Mirror Link" },
             ru: { ios_title: "Приложение iOS", ios_sub: "через TestFlight", ios_step1: "Установить TestFlight", ios_step2: "Вступить в ZION Beta", android_sub: "Прямая ссылка .APK", desktop_divider: "ДЕСКТОП", mac_sub: "Apple Silicon", win_sub: "Windows 10/11 (x64)", mirror_link: "Не качает? Зеркало (Drive)" }
@@ -195,49 +201,33 @@
             document.querySelectorAll('[data-i18n]').forEach(el => { const key = el.getAttribute('data-i18n'); if(translations[lang][key]) el.innerHTML = translations[lang][key]; });
         }
 
-        // Accordion
+        // --- 3. ACCORDION ---
         function toggleIOS() {
             const steps = document.getElementById('iosSteps'); const chevron = document.getElementById('iosChevron');
             if (steps.classList.contains('ios-expanded')) { steps.classList.remove('ios-expanded'); chevron.style.transform = 'rotate(0deg)'; } else { steps.classList.add('ios-expanded'); chevron.style.transform = 'rotate(180deg)'; }
         }
-    </script>
 
-    <script>
-        // ... твои старые скрипты ...
-
-        // --- АВТОМАТИЗАЦИЯ APK ---
-        const GITHUB_REPO = "odBoreas/zion"; // Твой репозиторий
+        // --- 4. GITHUB APK AUTO-UPDATE ---
+        // ЗАМЕНИ 'odBoreas/zion' НА СВОЙ РЕПО, ЕСЛИ ОН ДРУГОЙ
+        const GITHUB_REPO = "odBoreas/zion"; 
 
         async function getLatestApk() {
             try {
-                // Стучимся в API Гитхаба
                 const response = await fetch(`https://api.github.com/repos/${GITHUB_REPO}/releases/latest`);
+                if (!response.ok) throw new Error("GitHub API limit or repo not found");
                 const data = await response.json();
-
-                // Ищем файл, который заканчивается на .apk
                 const apkAsset = data.assets.find(asset => asset.name.endsWith('.apk'));
 
                 if (apkAsset) {
-                    // 1. Подменяем ссылку на кнопку
                     const btn = document.getElementById('androidLink');
                     btn.href = apkAsset.browser_download_url;
-
-                    // 2. Показываем версию
                     const verBadge = document.getElementById('androidVer');
-                    verBadge.innerText = data.tag_name; // Например "v1.0.2"
+                    verBadge.innerText = data.tag_name;
                     verBadge.classList.remove('hidden');
-                    
-                    console.log("New APK linked:", data.tag_name);
                 }
-            } catch (error) {
-                console.error("GitHub API Error:", error);
-                // Если ошибка, ссылка останется пустой или можно поставить запасную
-            }
+            } catch (error) { console.log("Manual link used"); }
         }
-
-        // Запускаем поиск
         getLatestApk();
     </script>
-
 </body>
 </html>
