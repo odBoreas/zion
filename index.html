@@ -17,20 +17,20 @@
                         mono: ['JetBrains Mono', 'monospace'] 
                     },
                     colors: {
-                        zionBlack: "#080808",
-                        zionGray: "#121212",
-                        zionBorder: "#262626",
-                        zionText: "#ededed",
-                        zionDim: "#888888"
+                        zionBlack: "#050505",
+                        zionCard: "#0A0A0A",
+                        zionBorder: "#1F1F1F",
+                        zionText: "#EDEDED",
+                        zionDim: "#666666"
                     },
-                    animation: { 'fade-in': 'fadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1)' },
-                    keyframes: { fadeIn: { '0%': { opacity: '0', transform: 'translateY(20px)' }, '100%': { opacity: '1', transform: 'translateY(0)' } } }
+                    animation: { 'fade-in': 'fadeIn 0.6s ease-out' },
+                    keyframes: { fadeIn: { '0%': { opacity: '0', transform: 'translateY(15px)' }, '100%': { opacity: '1', transform: 'translateY(0)' } } }
                 }
             }
         }
     </script>
     <style>
-        body { background-color: #080808; color: #ededed; -webkit-font-smoothing: antialiased; letter-spacing: -0.01em; }
+        body { background-color: #050505; color: #ededed; -webkit-font-smoothing: antialiased; letter-spacing: -0.01em; }
         * { -webkit-tap-highlight-color: transparent; }
         
         .flat-card {
@@ -52,145 +52,155 @@
 </head>
 <body class="min-h-screen flex items-center justify-center p-6 md:p-12 relative">
 
-    <!-- Background -->
-    <div class="fixed inset-0 opacity-[0.04] pointer-events-none z-0" style="background-image: url('https://grainy-gradients.vercel.app/noise.svg');"></div>
-
-    <!-- Lang Switcher (Absolute Top-Right) -->
+    <!-- Lang Switcher -->
     <div class="absolute top-8 right-8 z-50 flex items-center gap-3 text-xs md:text-sm font-medium text-zionDim">
         <span onclick="setLang('ru')" class="lang-btn" id="btn-ru">RU</span>
         <span class="opacity-20">/</span>
         <span onclick="setLang('en')" class="lang-btn active" id="btn-en">EN</span>
     </div>
 
-    <!-- MAIN CONTAINER: Split Layout on Desktop -->
+    <!-- MAIN CONTAINER -->
     <div class="w-full max-w-[400px] md:max-w-6xl relative z-10 animate-fade-in flex flex-col md:flex-row md:items-start md:justify-center md:gap-24">
         
-        <!-- LEFT COLUMN: Brand & Info (Desktop Sticky style) -->
+        <!-- LEFT COLUMN: Brand -->
         <div class="text-center md:text-left md:w-[350px] md:h-[600px] md:flex md:flex-col md:justify-between mb-10 md:mb-0 md:sticky md:top-20">
             <div>
-                <!-- Logo -->
-                <img src="assets/images/logo.png" alt="ZION" class="h-14 md:h-24 mx-auto md:mx-0 mb-6 md:mb-8 object-contain opacity-90">
-                
-                <!-- Build Badge -->
+                <img src="assets/images/logo.png" alt="ZION" class="h-14 md:h-20 mx-auto md:mx-0 mb-6 md:mb-8 object-contain opacity-90">
                 <div class="inline-block px-3 py-1 border border-zionBorder rounded-sm bg-zionCard">
                     <span id="buildText" class="text-[10px] md:text-xs text-zionDim font-mono tracking-widest uppercase" data-value="BUILD: PUBLIC_BETA_v1.0">BUILD: PUBLIC_BETA_v1.0</span>
                 </div>
-
                 <p class="hidden md:block mt-8 text-zionDim text-sm leading-relaxed max-w-[300px]">
                     Secure, encrypted communication protocol. <br>
                     Select your platform to begin installation.
                 </p>
             </div>
 
-            <!-- Footer (Moves to left column on Desktop) -->
+            <!-- Desktop Footer -->
             <div class="hidden md:block">
-                <a href="#" class="text-xs text-zionDim/60 hover:text-white transition-colors border-b border-transparent hover:border-white/30 pb-0.5" data-i18n="mirror_link">Download issues? Mirror Link</a>
+                <!-- Mirror Link с явным подчеркиванием -->
+                <a href="#" class="text-xs text-zionDim/80 hover:text-white transition-colors border-b border-zionDim/40 hover:border-white pb-0.5" data-i18n="mirror_link">Download issues? Mirror Link</a>
                 <div class="mt-4 text-[10px] font-bold tracking-widest text-zionDim/30 uppercase">
                     SECURED BY ZION PROTOCOL
                 </div>
             </div>
         </div>
 
-        <!-- RIGHT COLUMN: Cards (Larger on Desktop) -->
-        <div class="w-full md:w-[500px] space-y-3 md:space-y-4">
+        <!-- RIGHT COLUMN: Cards Container -->
+        <!-- flex-col-reverse на десктопе (md:) перевернет порядок групп! -->
+        <div class="w-full md:w-[500px] flex flex-col md:flex-col-reverse gap-3 md:gap-0">
 
-            <!-- 1. iOS App -->
-            <div class="flat-card rounded-sm overflow-hidden">
-                <div onclick="toggleIOS()" class="p-4 md:p-6 flex items-center justify-between cursor-pointer">
-                    <div class="flex items-center gap-4 md:gap-6">
-                        <div class="w-11 h-11 md:w-14 md:h-14 rounded-sm bg-black border border-zionBorder flex items-center justify-center">
-                            <i class="fab fa-apple text-xl md:text-2xl text-white"></i>
-                        </div>
-                        <div>
-                            <h3 class="font-semibold text-[15px] md:text-lg leading-tight tracking-wide" data-i18n="ios_title">iOS App</h3>
-                            <p class="text-xs md:text-sm text-zionDim mt-0.5 font-medium font-mono" data-i18n="ios_sub">via TestFlight</p>
-                        </div>
-                    </div>
-                    <i id="iosChevron" class="fas fa-chevron-down text-zionDim/50 transition-transform duration-300 text-sm md:text-base"></i>
+            <!-- GROUP 1: DESKTOP OS (На мобилке внизу, на десктопе будет вверху) -->
+            <div class="space-y-3 md:space-y-4 md:mb-4">
+                
+                <!-- Divider: "DESKTOP" (Виден везде, но на десктопе стоит снизу этой группы из-за реверса) -->
+                <!-- Мы его хитро скроем на десктопе и покажем другой разделитель -->
+                <div class="py-6 flex items-center gap-4 opacity-40 md:hidden">
+                    <div class="h-px bg-zionBorder flex-1"></div>
+                    <span class="text-[9px] font-mono font-bold tracking-[0.2em] text-zionDim uppercase" data-i18n="desktop_divider">DESKTOP</span>
+                    <div class="h-px bg-zionBorder flex-1"></div>
                 </div>
 
-                <!-- Steps -->
-                <div id="iosSteps" class="ios-steps bg-black border-t border-zionBorder">
-                    <div class="p-3 md:p-5 space-y-2 md:space-y-3">
-                        <a href="https://apps.apple.com/us/app/testflight/id899247664" target="_blank" class="flex items-center gap-3 md:gap-4 p-3 md:p-4 rounded-sm border border-zionBorder hover:bg-zionCard transition-colors group">
-                            <div class="w-5 h-5 md:w-6 md:h-6 rounded-sm bg-[#007AFF]/10 flex items-center justify-center text-[10px] md:text-xs font-bold text-[#007AFF]">1</div>
-                            <div class="text-xs md:text-sm font-medium text-gray-400 group-hover:text-white transition-colors" data-i18n="ios_step1">Install TestFlight</div>
-                        </a>
-                        <a href="https://testflight.apple.com/join/UcnAFCbV" target="_blank" class="flex items-center gap-3 md:gap-4 p-3 md:p-4 rounded-sm border border-zionBorder hover:bg-zionCard transition-colors group">
-                            <div class="w-5 h-5 md:w-6 md:h-6 rounded-sm bg-white/10 flex items-center justify-center text-[10px] md:text-xs font-bold text-white">2</div>
-                            <div class="text-xs md:text-sm font-medium text-gray-400 group-hover:text-white transition-colors" data-i18n="ios_step2">Join ZION Beta</div>
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 2. Android -->
-            <a id="androidLink" href="#" class="block flat-card rounded-sm p-4 md:p-6 group">
-                <div class="flex items-center justify-between">
-                    <div class="flex items-center gap-4 md:gap-6">
-                        <div class="w-11 h-11 md:w-14 md:h-14 rounded-sm bg-black border border-zionBorder flex items-center justify-center">
-                            <i class="fab fa-android text-xl md:text-2xl text-[#3DDC84]"></i>
-                        </div>
-                        <div>
-                            <h3 class="font-semibold text-[15px] md:text-lg leading-tight tracking-wide">Android</h3>
-                            <div class="flex items-center gap-2 mt-0.5">
-                                <p class="text-xs md:text-sm text-zionDim font-medium font-mono" data-i18n="android_sub">Direct .APK</p>
-                                <span id="androidVer" class="text-[9px] md:text-[10px] bg-white/5 text-white/50 px-1.5 rounded-sm font-mono hidden">v1.0</span>
+                <!-- macOS -->
+                <a href="#" class="block flat-card rounded-sm p-4 md:p-6 group">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-4 md:gap-6">
+                            <div class="w-11 h-11 md:w-14 md:h-14 rounded-sm bg-black border border-zionBorder flex items-center justify-center">
+                                <i class="fab fa-apple text-xl md:text-2xl text-white"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold text-[15px] md:text-lg leading-tight tracking-wide">macOS</h3>
+                                <div class="flex items-center gap-1.5 mt-0.5">
+                                    <p class="text-xs md:text-sm text-zionDim font-medium font-mono" data-i18n="mac_sub">Apple Silicon</p>
+                                    <span class="w-0.5 h-0.5 rounded-full bg-zinc-700"></span>
+                                    <p class="text-[9px] md:text-[10px] text-yellow-600/70 font-mono">M1/M2/M3</p>
+                                </div>
                             </div>
                         </div>
+                        <i class="fas fa-arrow-down text-zionDim/30 group-hover:text-white transition-colors text-sm md:text-base"></i>
                     </div>
-                    <i class="fas fa-arrow-down text-zionDim/30 group-hover:text-white transition-colors text-sm md:text-base"></i>
-                </div>
-            </a>
+                </a>
 
-            <!-- DESKTOP DIVIDER -->
-            <div class="py-6 flex items-center gap-4 opacity-40 md:py-8">
+                <!-- Windows -->
+                <a href="#" class="block flat-card rounded-sm p-4 md:p-6 group">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-4 md:gap-6">
+                            <div class="w-11 h-11 md:w-14 md:h-14 rounded-sm bg-black border border-zionBorder flex items-center justify-center">
+                                <i class="fab fa-windows text-xl md:text-2xl text-[#00A4EF]"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold text-[15px] md:text-lg leading-tight tracking-wide">Windows</h3>
+                                <p class="text-xs md:text-sm text-zionDim mt-0.5 font-medium font-mono" data-i18n="win_sub">Windows 10/11 (x64)</p>
+                            </div>
+                        </div>
+                        <i class="fas fa-arrow-down text-zionDim/30 group-hover:text-white transition-colors text-sm md:text-base"></i>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Разделитель для ДЕСКТОПА (Виден только на md) -->
+            <!-- Он будет между группами, так как flex-reverse -->
+            <div class="hidden md:flex py-8 items-center gap-4 opacity-40">
                 <div class="h-px bg-zionBorder flex-1"></div>
-                <span class="text-[9px] md:text-[10px] font-mono font-bold tracking-[0.2em] text-zionDim uppercase" data-i18n="desktop_divider">DESKTOP</span>
+                <span class="text-[10px] font-mono font-bold tracking-[0.2em] text-zionDim uppercase">MOBILE</span>
                 <div class="h-px bg-zionBorder flex-1"></div>
             </div>
 
-            <!-- 3. macOS -->
-            <a href="#" class="block flat-card rounded-sm p-4 md:p-6 group">
-                <div class="flex items-center justify-between">
-                    <div class="flex items-center gap-4 md:gap-6">
-                        <div class="w-11 h-11 md:w-14 md:h-14 rounded-sm bg-black border border-zionBorder flex items-center justify-center">
-                            <i class="fab fa-apple text-xl md:text-2xl text-white"></i>
-                        </div>
-                        <div>
-                            <h3 class="font-semibold text-[15px] md:text-lg leading-tight tracking-wide">macOS</h3>
-                            <div class="flex items-center gap-1.5 mt-0.5">
-                                <p class="text-xs md:text-sm text-zionDim font-medium font-mono" data-i18n="mac_sub">Apple Silicon</p>
-                                <span class="w-0.5 h-0.5 rounded-full bg-zinc-700"></span>
-                                <p class="text-[9px] md:text-[10px] text-yellow-600/70 font-mono">M1/M2/M3</p>
+            <!-- GROUP 2: MOBILE OS (На мобилке вверху, на десктопе будет внизу) -->
+            <div class="space-y-3 md:space-y-4">
+                <!-- iOS App -->
+                <div class="flat-card rounded-sm overflow-hidden">
+                    <div onclick="toggleIOS()" class="p-4 md:p-6 flex items-center justify-between cursor-pointer">
+                        <div class="flex items-center gap-4 md:gap-6">
+                            <div class="w-11 h-11 md:w-14 md:h-14 rounded-sm bg-black border border-zionBorder flex items-center justify-center">
+                                <i class="fab fa-apple text-xl md:text-2xl text-white"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold text-[15px] md:text-lg leading-tight tracking-wide" data-i18n="ios_title">iOS App</h3>
+                                <p class="text-xs md:text-sm text-zionDim mt-0.5 font-medium font-mono" data-i18n="ios_sub">via TestFlight</p>
                             </div>
                         </div>
+                        <i id="iosChevron" class="fas fa-chevron-down text-zionDim/50 transition-transform duration-300 text-sm md:text-base"></i>
                     </div>
-                    <i class="fas fa-arrow-down text-zionDim/30 group-hover:text-white transition-colors text-sm md:text-base"></i>
+                    <div id="iosSteps" class="ios-steps bg-black border-t border-zionBorder">
+                        <div class="p-3 md:p-5 space-y-2 md:space-y-3">
+                            <a href="https://apps.apple.com/us/app/testflight/id899247664" target="_blank" class="flex items-center gap-3 md:gap-4 p-3 md:p-4 rounded-sm border border-zionBorder hover:bg-zionCard transition-colors group">
+                                <div class="w-5 h-5 md:w-6 md:h-6 rounded-sm bg-[#007AFF]/10 flex items-center justify-center text-[10px] md:text-xs font-bold text-[#007AFF]">1</div>
+                                <div class="text-xs md:text-sm font-medium text-gray-400 group-hover:text-white transition-colors" data-i18n="ios_step1">Install TestFlight</div>
+                            </a>
+                            <a href="https://testflight.apple.com/join/UcnAFCbV" target="_blank" class="flex items-center gap-3 md:gap-4 p-3 md:p-4 rounded-sm border border-zionBorder hover:bg-zionCard transition-colors group">
+                                <div class="w-5 h-5 md:w-6 md:h-6 rounded-sm bg-white/10 flex items-center justify-center text-[10px] md:text-xs font-bold text-white">2</div>
+                                <div class="text-xs md:text-sm font-medium text-gray-400 group-hover:text-white transition-colors" data-i18n="ios_step2">Join ZION Beta</div>
+                            </a>
+                        </div>
+                    </div>
                 </div>
-            </a>
 
-            <!-- 4. Windows -->
-            <a href="#" class="block flat-card rounded-sm p-4 md:p-6 group">
-                <div class="flex items-center justify-between">
-                    <div class="flex items-center gap-4 md:gap-6">
-                        <div class="w-11 h-11 md:w-14 md:h-14 rounded-sm bg-black border border-zionBorder flex items-center justify-center">
-                            <i class="fab fa-windows text-xl md:text-2xl text-[#00A4EF]"></i>
+                <!-- Android -->
+                <a id="androidLink" href="#" class="block flat-card rounded-sm p-4 md:p-6 group">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-4 md:gap-6">
+                            <div class="w-11 h-11 md:w-14 md:h-14 rounded-sm bg-black border border-zionBorder flex items-center justify-center">
+                                <i class="fab fa-android text-xl md:text-2xl text-[#3DDC84]"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold text-[15px] md:text-lg leading-tight tracking-wide">Android</h3>
+                                <div class="flex items-center gap-2 mt-0.5">
+                                    <p class="text-xs md:text-sm text-zionDim font-medium font-mono" data-i18n="android_sub">Direct .APK</p>
+                                    <span id="androidVer" class="text-[9px] md:text-[10px] bg-white/5 text-white/50 px-1.5 rounded-sm font-mono hidden">v1.0</span>
+                                </div>
+                            </div>
                         </div>
-                        <div>
-                            <h3 class="font-semibold text-[15px] md:text-lg leading-tight tracking-wide">Windows</h3>
-                            <p class="text-xs md:text-sm text-zionDim mt-0.5 font-medium font-mono" data-i18n="win_sub">Windows 10/11 (x64)</p>
-                        </div>
+                        <i class="fas fa-arrow-down text-zionDim/30 group-hover:text-white transition-colors text-sm md:text-base"></i>
                     </div>
-                    <i class="fas fa-arrow-down text-zionDim/30 group-hover:text-white transition-colors text-sm md:text-base"></i>
-                </div>
-            </a>
+                </a>
+            </div>
 
         </div>
 
-        <!-- Mobile Footer (Only shows on mobile) -->
+        <!-- Mobile Footer -->
         <div class="mt-16 text-center md:hidden">
-            <a href="#" class="text-[11px] text-zionDim/60 hover:text-white transition-colors border-b border-transparent hover:border-white/30 pb-0.5" data-i18n="mirror_link">Download issues? Mirror Link</a>
+            <!-- Явное подчеркивание border-b-zionDim/40 -->
+            <a href="#" class="text-[11px] text-zionDim/80 hover:text-white transition-colors border-b border-zionDim/40 hover:border-white pb-0.5" data-i18n="mirror_link">Download issues? Mirror Link</a>
             <div class="mt-6 text-[9px] font-bold tracking-widest text-zionDim/30 uppercase">
                 SECURED BY ZION PROTOCOL
             </div>
@@ -199,12 +209,11 @@
     </div>
 
     <script>
+        // 1. Hacker Effect
         const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
         document.addEventListener("DOMContentLoaded", () => {
             const target = document.getElementById('buildText');
-            let iteration = 0;
-            const originalText = target.dataset.value;
-            let interval = setInterval(() => {
+            let iteration = 0; const originalText = target.dataset.value; let interval = setInterval(() => {
                 target.innerText = originalText.split("").map((letter, index) => {
                     if(index < iteration) return originalText[index];
                     return letters[Math.floor(Math.random() * 26)];
@@ -214,6 +223,7 @@
             }, 30);
         });
 
+        // 2. Translations
         const translations = {
             en: { ios_title: "iOS App", ios_sub: "via TestFlight", ios_step1: "Install TestFlight", ios_step2: "Join ZION Beta", android_sub: "Direct .APK", desktop_divider: "DESKTOP", mac_sub: "Apple Silicon", win_sub: "Windows 10/11 (x64)", mirror_link: "Download issues? Mirror Link" },
             ru: { ios_title: "Приложение iOS", ios_sub: "через TestFlight", ios_step1: "Установить TestFlight", ios_step2: "Вступить в ZION Beta", android_sub: "Прямая ссылка .APK", desktop_divider: "ДЕСКТОП", mac_sub: "Apple Silicon", win_sub: "Windows 10/11 (x64)", mirror_link: "Не качает? Зеркало (Drive)" }
@@ -223,11 +233,13 @@
             document.querySelectorAll('[data-i18n]').forEach(el => { const key = el.getAttribute('data-i18n'); if(translations[lang][key]) el.innerHTML = translations[lang][key]; });
         }
 
+        // 3. Accordion
         function toggleIOS() {
             const steps = document.getElementById('iosSteps'); const chevron = document.getElementById('iosChevron');
             if (steps.classList.contains('ios-expanded')) { steps.classList.remove('ios-expanded'); chevron.style.transform = 'rotate(0deg)'; } else { steps.classList.add('ios-expanded'); chevron.style.transform = 'rotate(180deg)'; }
         }
 
+        // 4. Auto-APK
         const GITHUB_REPO = "odBoreas/zion"; 
         async function getLatestApk() {
             try {
