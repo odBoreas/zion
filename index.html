@@ -6,13 +6,13 @@
     <title>ZION | Download Portal</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
     
     <script>
         tailwind.config = {
             theme: {
                 extend: {
-                    fontFamily: { sans: ['Inter', 'sans-serif'] },
+                    fontFamily: { sans: ['Inter', 'sans-serif'], mono: ['Space Mono', 'monospace'] },
                     colors: {
                         zionBlack: "#050505",
                         zionGray: "#1a1a1a",
@@ -28,31 +28,28 @@
     </script>
     <style>
         body { background-color: #050505; color: #ededed; -webkit-font-smoothing: antialiased; }
-        /* Убираем подсветку при тапе на мобилках */
         * { -webkit-tap-highlight-color: transparent; }
-        
         .card-hover { transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); }
         .card-hover:active { transform: scale(0.98); background-color: #1f1f1f; }
-        @media (min-width: 768px) {
-            .card-hover:hover { transform: translateY(-2px); border-color: #666; }
-        }
-
-        /* Скрытый блок iOS */
-        .ios-steps {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease-out;
-        }
-        .ios-expanded {
-            max-height: 200px; /* Достаточно для двух кнопок */
-        }
+        @media (min-width: 768px) { .card-hover:hover { transform: translateY(-2px); border-color: #666; } }
+        .ios-steps { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; }
+        .ios-expanded { max-height: 200px; }
+        
+        /* Языковой переключатель */
+        .lang-btn { opacity: 0.5; transition: opacity 0.3s; cursor: pointer; }
+        .lang-btn:hover, .lang-btn.active { opacity: 1; font-weight: 600; }
     </style>
 </head>
 <body class="min-h-screen flex flex-col items-center justify-center p-6 relative">
 
-    <!-- Background Texture (Subtle Noise) -->
-    <div class="fixed inset-0 opacity-[0.03] pointer-events-none z-0" 
-         style="background-image: url('https://grainy-gradients.vercel.app/noise.svg');">
+    <!-- Background Texture -->
+    <div class="fixed inset-0 opacity-[0.03] pointer-events-none z-0" style="background-image: url('https://grainy-gradients.vercel.app/noise.svg');"></div>
+
+    <!-- Language Switcher (Top Right) -->
+    <div class="absolute top-6 right-6 z-50 flex items-center gap-2 text-sm font-mono text-zionDim">
+        <span onclick="setLang('ru')" class="lang-btn" id="btn-ru">RU</span>
+        <span>/</span>
+        <span onclick="setLang('en')" class="lang-btn active" id="btn-en">EN</span>
     </div>
 
     <div class="w-full max-w-md relative z-10 animate-fade-in">
@@ -60,25 +57,24 @@
         <!-- Logo Header -->
         <div class="text-center mb-10">
             <img src="assets/images/logo.png" alt="ZION" class="h-16 mx-auto mb-4 object-contain">
-            <div class="inline-block px-3 py-1 rounded-full border border-zionBorder bg-zionGray/50 backdrop-blur-md">
-                <span class="text-xs text-zionDim font-mono tracking-widest">BUILD: PUBLIC_BETA_v1.0</span>
+            <div class="inline-block px-3 py-1 rounded-full border border-zionBorder bg-zionGray/50 backdrop-blur-md min-w-[200px]">
+                <span id="buildText" class="text-xs text-zionDim font-mono tracking-widest" data-value="BUILD: PUBLIC_BETA_v1.0">BUILD: PUBLIC_BETA_v1.0</span>
             </div>
         </div>
 
         <!-- Grid Layout -->
         <div class="space-y-4">
 
-            <!-- 1. iOS Card (Expandable) -->
+            <!-- 1. iOS Card -->
             <div class="bg-zionGray border border-zionBorder rounded-2xl overflow-hidden">
-                <!-- Main Trigger -->
                 <div onclick="toggleIOS()" class="p-5 flex items-center justify-between cursor-pointer card-hover">
                     <div class="flex items-center gap-4">
                         <div class="w-10 h-10 rounded-full bg-black flex items-center justify-center border border-zionBorder">
                             <i class="fab fa-apple text-xl"></i>
                         </div>
                         <div>
-                            <h3 class="font-semibold text-lg">iOS App</h3>
-                            <p class="text-xs text-zionDim">via TestFlight</p>
+                            <h3 class="font-semibold text-lg" data-i18n="ios_title">iOS App</h3>
+                            <p class="text-xs text-zionDim" data-i18n="ios_sub">via TestFlight</p>
                         </div>
                     </div>
                     <i id="iosChevron" class="fas fa-chevron-down text-zionDim transition-transform duration-300"></i>
@@ -87,15 +83,13 @@
                 <!-- Hidden Steps -->
                 <div id="iosSteps" class="ios-steps bg-black/30 border-t border-zionBorder">
                     <div class="p-4 space-y-3">
-                        <!-- Step 1 -->
                         <a href="https://apps.apple.com/us/app/testflight/id899247664" target="_blank" class="flex items-center gap-3 p-3 rounded-xl bg-zionGray border border-zionBorder hover:bg-[#2a2a2a] transition-colors">
                             <div class="w-6 h-6 rounded-full bg-[#007AFF] flex items-center justify-center text-[10px] font-bold">1</div>
-                            <div class="text-sm">Install <span class="text-blue-400">TestFlight</span> from App Store</div>
+                            <div class="text-sm" data-i18n="ios_step1">Install <span class="text-blue-400">TestFlight</span> from App Store</div>
                         </a>
-                        <!-- Step 2 -->
-                        <a href="https://testflight.apple.com/join/ТВОЯ_ССЫЛКА" target="_blank" class="flex items-center gap-3 p-3 rounded-xl bg-zionGray border border-zionBorder hover:bg-[#2a2a2a] transition-colors">
+                        <a href="https://testflight.apple.com/join/ССЫЛКА" target="_blank" class="flex items-center gap-3 p-3 rounded-xl bg-zionGray border border-zionBorder hover:bg-[#2a2a2a] transition-colors">
                             <div class="w-6 h-6 rounded-full bg-white text-black flex items-center justify-center text-[10px] font-bold">2</div>
-                            <div class="text-sm">Join <span class="font-bold">ZION Beta</span> Program</div>
+                            <div class="text-sm" data-i18n="ios_step2">Join <span class="font-bold">ZION Beta</span> Program</div>
                         </a>
                     </div>
                 </div>
@@ -110,17 +104,17 @@
                         </div>
                         <div>
                             <h3 class="font-semibold text-lg">Android</h3>
-                            <p class="text-xs text-zionDim">Direct .APK Download</p>
+                            <p class="text-xs text-zionDim" data-i18n="android_sub">Direct .APK Download</p>
                         </div>
                     </div>
                     <i class="fas fa-download text-zionDim group-hover:text-white transition-colors"></i>
                 </div>
             </a>
 
-            <!-- Desktop Divider (Only visible if desktop users visit) -->
+            <!-- Desktop Divider -->
             <div class="py-2 flex items-center gap-4">
                 <div class="h-px bg-zionBorder flex-1"></div>
-                <span class="text-xs text-zionDim uppercase tracking-widest">Desktop</span>
+                <span class="text-xs text-zionDim uppercase tracking-widest" data-i18n="desktop_divider">Desktop</span>
                 <div class="h-px bg-zionBorder flex-1"></div>
             </div>
 
@@ -134,7 +128,7 @@
                         <div>
                             <h3 class="font-semibold text-lg">macOS</h3>
                             <div class="flex items-center gap-2">
-                                <p class="text-xs text-zionDim">Apple Silicon (M1/M2/M3)</p>
+                                <p class="text-xs text-zionDim" data-i18n="mac_sub">Apple Silicon (M1/M2/M3)</p>
                                 <i class="fas fa-microchip text-[10px] text-yellow-600"></i>
                             </div>
                         </div>
@@ -152,7 +146,7 @@
                         </div>
                         <div>
                             <h3 class="font-semibold text-lg">Windows</h3>
-                            <p class="text-xs text-zionDim">Windows 10/11 (x64)</p>
+                            <p class="text-xs text-zionDim" data-i18n="win_sub">Windows 10/11 (x64)</p>
                         </div>
                     </div>
                     <i class="fas fa-download text-zionDim group-hover:text-white transition-colors"></i>
@@ -161,10 +155,10 @@
 
         </div>
 
-        <!-- Footer / Troubleshooting -->
+        <!-- Footer -->
         <div class="mt-12 text-center space-y-4">
             <p class="text-xs text-zionDim">
-                Download failed? <a href="#" class="text-zionDim underline hover:text-white transition-colors">Try mirror link</a>
+                <span data-i18n="fail_text">Download failed?</span> <a href="#" class="text-zionDim underline hover:text-white transition-colors" data-i18n="mirror_link">Try mirror link</a>
             </p>
             <div class="text-[10px] text-zionBorder font-mono uppercase tracking-widest">
                 Secured by Zion Protocol
@@ -174,6 +168,84 @@
     </div>
 
     <script>
+        // 1. ХАКЕРСКИЙ ЭФФЕКТ ТЕКСТА
+        const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        let interval = null;
+
+        function hackerEffect(target) {
+            let iteration = 0;
+            const originalText = target.dataset.value;
+            
+            clearInterval(interval);
+            
+            interval = setInterval(() => {
+                target.innerText = originalText
+                    .split("")
+                    .map((letter, index) => {
+                        if(index < iteration) {
+                            return originalText[index];
+                        }
+                        return letters[Math.floor(Math.random() * 26)];
+                    })
+                    .join("");
+                
+                if(iteration >= originalText.length){ 
+                    clearInterval(interval);
+                }
+                iteration += 1 / 3;
+            }, 30);
+        }
+
+        // Запуск эффекта при наведении или загрузке
+        const buildText = document.getElementById('buildText');
+        buildText.onmouseover = event => hackerEffect(event.target);
+        // Запуск при загрузке страницы
+        window.onload = () => hackerEffect(buildText);
+
+
+        // 2. МУЛЬТИЯЗЫЧНОСТЬ (i18n)
+        const translations = {
+            en: {
+                ios_title: "iOS App",
+                ios_sub: "via TestFlight",
+                ios_step1: "Install <span class='text-blue-400'>TestFlight</span> from App Store",
+                ios_step2: "Join <span class='font-bold'>ZION Beta</span> Program",
+                android_sub: "Direct .APK Download",
+                desktop_divider: "DESKTOP",
+                mac_sub: "Apple Silicon (M1/M2/M3)",
+                win_sub: "Windows 10/11 (x64)",
+                fail_text: "Download failed?",
+                mirror_link: "Try mirror link"
+            },
+            ru: {
+                ios_title: "Приложение iOS",
+                ios_sub: "через TestFlight",
+                ios_step1: "Скачайте <span class='text-blue-400'>TestFlight</span> в App Store",
+                ios_step2: "Вступите в <span class='font-bold'>ZION Beta</span>",
+                android_sub: "Прямая ссылка .APK",
+                desktop_divider: "ДЕСКТОП",
+                mac_sub: "Apple Silicon (M1/M2/M3)",
+                win_sub: "Windows 10/11 (x64)",
+                fail_text: "Не скачивается?",
+                mirror_link: "Зеркало (Google Drive)"
+            }
+        };
+
+        function setLang(lang) {
+            // Переключаем классы кнопок
+            document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+            document.getElementById('btn-ru').classList.toggle('active', lang === 'ru');
+
+            // Меняем текст
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if(translations[lang][key]) {
+                    el.innerHTML = translations[lang][key];
+                }
+            });
+        }
+
+        // 3. АККОРДЕОН
         function toggleIOS() {
             const steps = document.getElementById('iosSteps');
             const chevron = document.getElementById('iosChevron');
