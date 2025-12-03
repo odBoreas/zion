@@ -77,8 +77,7 @@
 
             <!-- Desktop Footer -->
             <div class="hidden md:block">
-                <!-- Mirror Link с явным подчеркиванием -->
-                <a href="#" class="text-xs text-zionDim/80 hover:text-white transition-colors border-b border-zionDim/40 hover:border-white pb-0.5" data-i18n="mirror_link">Download issues? Mirror Link</a>
+                <a href="#" class="text-xs text-zionDim/80 hover:text-white transition-colors underline underline-offset-4 decoration-zionDim/40 hover:decoration-white" data-i18n="mirror_link">Download issues? Mirror Link</a>
                 <div class="mt-4 text-[10px] font-bold tracking-widest text-zionDim/30 uppercase">
                     SECURED BY ZION PROTOCOL
                 </div>
@@ -86,66 +85,11 @@
         </div>
 
         <!-- RIGHT COLUMN: Cards Container -->
-        <!-- flex-col-reverse на десктопе (md:) перевернет порядок групп! -->
-        <div class="w-full md:w-[500px] flex flex-col md:flex-col-reverse gap-3 md:gap-0">
+        <!-- На мобилке: обычная колонка (Мобайл -> Десктоп) -->
+        <!-- На десктопе: flex-col-reverse (Десктоп -> Мобайл) -->
+        <div class="w-full md:w-[500px] flex flex-col md:flex-col-reverse gap-3 md:gap-4">
 
-            <!-- GROUP 1: DESKTOP OS (На мобилке внизу, на десктопе будет вверху) -->
-            <div class="space-y-3 md:space-y-4 md:mb-4">
-                
-                <!-- Divider: "DESKTOP" (Виден везде, но на десктопе стоит снизу этой группы из-за реверса) -->
-                <!-- Мы его хитро скроем на десктопе и покажем другой разделитель -->
-                <div class="py-6 flex items-center gap-4 opacity-40 md:hidden">
-                    <div class="h-px bg-zionBorder flex-1"></div>
-                    <span class="text-[9px] font-mono font-bold tracking-[0.2em] text-zionDim uppercase" data-i18n="desktop_divider">DESKTOP</span>
-                    <div class="h-px bg-zionBorder flex-1"></div>
-                </div>
-
-                <!-- macOS -->
-                <a href="#" class="block flat-card rounded-sm p-4 md:p-6 group">
-                    <div class="flex items-center justify-between">
-                        <div class="flex items-center gap-4 md:gap-6">
-                            <div class="w-11 h-11 md:w-14 md:h-14 rounded-sm bg-black border border-zionBorder flex items-center justify-center">
-                                <i class="fab fa-apple text-xl md:text-2xl text-white"></i>
-                            </div>
-                            <div>
-                                <h3 class="font-semibold text-[15px] md:text-lg leading-tight tracking-wide">macOS</h3>
-                                <div class="flex items-center gap-1.5 mt-0.5">
-                                    <p class="text-xs md:text-sm text-zionDim font-medium font-mono" data-i18n="mac_sub">Apple Silicon</p>
-                                    <span class="w-0.5 h-0.5 rounded-full bg-zinc-700"></span>
-                                    <p class="text-[9px] md:text-[10px] text-yellow-600/70 font-mono">M1/M2/M3</p>
-                                </div>
-                            </div>
-                        </div>
-                        <i class="fas fa-arrow-down text-zionDim/30 group-hover:text-white transition-colors text-sm md:text-base"></i>
-                    </div>
-                </a>
-
-                <!-- Windows -->
-                <a href="#" class="block flat-card rounded-sm p-4 md:p-6 group">
-                    <div class="flex items-center justify-between">
-                        <div class="flex items-center gap-4 md:gap-6">
-                            <div class="w-11 h-11 md:w-14 md:h-14 rounded-sm bg-black border border-zionBorder flex items-center justify-center">
-                                <i class="fab fa-windows text-xl md:text-2xl text-[#00A4EF]"></i>
-                            </div>
-                            <div>
-                                <h3 class="font-semibold text-[15px] md:text-lg leading-tight tracking-wide">Windows</h3>
-                                <p class="text-xs md:text-sm text-zionDim mt-0.5 font-medium font-mono" data-i18n="win_sub">Windows 10/11 (x64)</p>
-                            </div>
-                        </div>
-                        <i class="fas fa-arrow-down text-zionDim/30 group-hover:text-white transition-colors text-sm md:text-base"></i>
-                    </div>
-                </a>
-            </div>
-
-            <!-- Разделитель для ДЕСКТОПА (Виден только на md) -->
-            <!-- Он будет между группами, так как flex-reverse -->
-            <div class="hidden md:flex py-8 items-center gap-4 opacity-40">
-                <div class="h-px bg-zionBorder flex-1"></div>
-                <span class="text-[10px] font-mono font-bold tracking-[0.2em] text-zionDim uppercase">MOBILE</span>
-                <div class="h-px bg-zionBorder flex-1"></div>
-            </div>
-
-            <!-- GROUP 2: MOBILE OS (На мобилке вверху, на десктопе будет внизу) -->
+            <!-- 1. MOBILE APPS GROUP (В коде идут ПЕРВЫМИ) -->
             <div class="space-y-3 md:space-y-4">
                 <!-- iOS App -->
                 <div class="flat-card rounded-sm overflow-hidden">
@@ -195,12 +139,62 @@
                 </a>
             </div>
 
+            <!-- DIVIDER (Between groups) -->
+            <div class="py-4 md:py-6 flex items-center gap-4 opacity-40">
+                <div class="h-px bg-zionBorder flex-1"></div>
+                
+                <!-- ТЕКСТ МЕНЯЕТСЯ: На мобилке "DESKTOP", на десктопе "MOBILE" -->
+                <span class="md:hidden text-[9px] font-mono font-bold tracking-[0.2em] text-zionDim uppercase" data-i18n="desktop_divider">DESKTOP</span>
+                <span class="hidden md:block text-[9px] font-mono font-bold tracking-[0.2em] text-zionDim uppercase">MOBILE</span>
+                
+                <div class="h-px bg-zionBorder flex-1"></div>
+            </div>
+
+            <!-- 2. DESKTOP APPS GROUP (В коде идут ВТОРЫМИ) -->
+            <!-- Из-за flex-col-reverse на десктопе они улетят НАВЕРХ -->
+            <div class="space-y-3 md:space-y-4">
+                <!-- macOS -->
+                <a href="#" class="block flat-card rounded-sm p-4 md:p-6 group">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-4 md:gap-6">
+                            <div class="w-11 h-11 md:w-14 md:h-14 rounded-sm bg-black border border-zionBorder flex items-center justify-center">
+                                <i class="fab fa-apple text-xl md:text-2xl text-white"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold text-[15px] md:text-lg leading-tight tracking-wide">macOS</h3>
+                                <div class="flex items-center gap-1.5 mt-0.5">
+                                    <p class="text-xs md:text-sm text-zionDim font-medium font-mono" data-i18n="mac_sub">Apple Silicon</p>
+                                    <span class="w-0.5 h-0.5 rounded-full bg-zinc-700"></span>
+                                    <p class="text-[9px] md:text-[10px] text-yellow-600/70 font-mono">M1/M2/M3</p>
+                                </div>
+                            </div>
+                        </div>
+                        <i class="fas fa-arrow-down text-zionDim/30 group-hover:text-white transition-colors text-sm md:text-base"></i>
+                    </div>
+                </a>
+
+                <!-- Windows -->
+                <a href="#" class="block flat-card rounded-sm p-4 md:p-6 group">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-4 md:gap-6">
+                            <div class="w-11 h-11 md:w-14 md:h-14 rounded-sm bg-black border border-zionBorder flex items-center justify-center">
+                                <i class="fab fa-windows text-xl md:text-2xl text-[#00A4EF]"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold text-[15px] md:text-lg leading-tight tracking-wide">Windows</h3>
+                                <p class="text-xs md:text-sm text-zionDim mt-0.5 font-medium font-mono" data-i18n="win_sub">Windows 10/11 (x64)</p>
+                            </div>
+                        </div>
+                        <i class="fas fa-arrow-down text-zionDim/30 group-hover:text-white transition-colors text-sm md:text-base"></i>
+                    </div>
+                </a>
+            </div>
+
         </div>
 
         <!-- Mobile Footer -->
-        <div class="mt-16 text-center md:hidden">
-            <!-- Явное подчеркивание border-b-zionDim/40 -->
-            <a href="#" class="text-[11px] text-zionDim/80 hover:text-white transition-colors border-b border-zionDim/40 hover:border-white pb-0.5" data-i18n="mirror_link">Download issues? Mirror Link</a>
+        <div class="mt-12 text-center md:hidden">
+            <a href="#" class="text-[11px] text-zionDim/80 hover:text-white transition-colors underline underline-offset-4 decoration-zionDim/40 hover:decoration-white" data-i18n="mirror_link">Download issues? Mirror Link</a>
             <div class="mt-6 text-[9px] font-bold tracking-widest text-zionDim/30 uppercase">
                 SECURED BY ZION PROTOCOL
             </div>
@@ -209,7 +203,7 @@
     </div>
 
     <script>
-        // 1. Hacker Effect
+        // Hacker Effect
         const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
         document.addEventListener("DOMContentLoaded", () => {
             const target = document.getElementById('buildText');
@@ -223,7 +217,7 @@
             }, 30);
         });
 
-        // 2. Translations
+        // Translations
         const translations = {
             en: { ios_title: "iOS App", ios_sub: "via TestFlight", ios_step1: "Install TestFlight", ios_step2: "Join ZION Beta", android_sub: "Direct .APK", desktop_divider: "DESKTOP", mac_sub: "Apple Silicon", win_sub: "Windows 10/11 (x64)", mirror_link: "Download issues? Mirror Link" },
             ru: { ios_title: "Приложение iOS", ios_sub: "через TestFlight", ios_step1: "Установить TestFlight", ios_step2: "Вступить в ZION Beta", android_sub: "Прямая ссылка .APK", desktop_divider: "ДЕСКТОП", mac_sub: "Apple Silicon", win_sub: "Windows 10/11 (x64)", mirror_link: "Не качает? Зеркало (Drive)" }
@@ -233,13 +227,13 @@
             document.querySelectorAll('[data-i18n]').forEach(el => { const key = el.getAttribute('data-i18n'); if(translations[lang][key]) el.innerHTML = translations[lang][key]; });
         }
 
-        // 3. Accordion
+        // Accordion
         function toggleIOS() {
             const steps = document.getElementById('iosSteps'); const chevron = document.getElementById('iosChevron');
             if (steps.classList.contains('ios-expanded')) { steps.classList.remove('ios-expanded'); chevron.style.transform = 'rotate(0deg)'; } else { steps.classList.add('ios-expanded'); chevron.style.transform = 'rotate(180deg)'; }
         }
 
-        // 4. Auto-APK
+        // GitHub APK Auto-Update
         const GITHUB_REPO = "odBoreas/zion"; 
         async function getLatestApk() {
             try {
