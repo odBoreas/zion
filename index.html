@@ -61,8 +61,11 @@
         <!-- Logo -->
         <div class="text-center mb-12">
             <img src="assets/images/logo.png" alt="ZION" class="h-14 mx-auto mb-6 object-contain opacity-90">
-            <div class="inline-flex items-center justify-center px-4 py-1.5 border border-zionBorder rounded-full bg-zionGray/30 backdrop-blur-sm">
-                <div class="w-1.5 h-1.5 bg-green-500 rounded-full mr-2 animate-pulse"></div>
+            
+            <!-- 🔥 UPDATED BADGE: Square corners, Square LED -->
+            <div class="inline-flex items-center justify-center px-3 py-1 border border-zionBorder rounded-sm bg-zionGray/30 backdrop-blur-sm">
+                <!-- Квадратная точка (rounded-[1px]) -->
+                <div class="w-1.5 h-1.5 bg-green-500 rounded-[1px] mr-2 animate-pulse"></div>
                 <span id="buildText" class="text-[10px] text-zionDim font-mono tracking-wide" data-value="PUBLIC_BETA_v1.0">PUBLIC_BETA_v1.0</span>
             </div>
         </div>
@@ -119,11 +122,9 @@
                 </div>
             </a>
 
-            <!-- DESKTOP DIVIDER (FIXED) -->
+            <!-- DESKTOP DIVIDER -->
             <div class="py-6 flex items-center gap-4">
-                <!-- Линия цвета рамки (четко видна) -->
                 <div class="h-px bg-zionBorder flex-1"></div>
-                <!-- Текст серый -->
                 <span class="text-[10px] font-mono font-bold tracking-[0.2em] text-zionDim/70 uppercase" data-i18n="desktop_divider">DESKTOP</span>
                 <div class="h-px bg-zionBorder flex-1"></div>
             </div>
@@ -208,7 +209,6 @@
         }
 
         // --- 4. GITHUB APK AUTO-UPDATE ---
-        // ЗАМЕНИ 'odBoreas/zion' НА СВОЙ РЕПО, ЕСЛИ ОН ДРУГОЙ
         const GITHUB_REPO = "odBoreas/zion"; 
 
         async function getLatestApk() {
